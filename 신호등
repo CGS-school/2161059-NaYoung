@@ -1,0 +1,96 @@
+// C++ code
+//
+#define PRpin 13
+#define PGpin 12
+#define CRpin 7
+#define CYpin 6
+#define CGpin 5
+void setup()
+{
+  pinMode(PRpin, OUTPUT);
+  pinMode(PGpin, OUTPUT);
+  pinMode(CRpin, OUTPUT);
+  pinMode(CYpin, OUTPUT);
+  pinMode(CGpin, OUTPUT);
+}
+
+void loop()
+{
+  int PGpin_H = 0;
+  int PRpin_H = 0;
+  int CRpin_H = 0;
+  int CYpin_H = 0;
+  int CGpin_H = 0;
+  
+  
+  digitalWrite(PGpin, HIGH);
+  digitalWrite(PRpin, LOW);
+  delay(2000);
+  
+  digitalWrite(CRpin, HIGH);
+  digitalWrite(CYpin, LOW);
+  digitalWrite(CGpin, LOW);
+
+  
+  digitalWrite(PRpin, HIGH);
+    
+  
+  
+  digitalWrite(PGpin, LOW);
+  digitalWrite(PRpin, HIGH);
+  delay(4000);
+  
+  delay(4000);
+  
+  digitalWrite(CRpin, LOW);
+  digitalWrite(CYpin, HIGH);
+  digitalWrite(CGpin, LOW);
+  delay(1000);
+  
+  digitalWrite(CRpin, LOW);
+  digitalWrite(CYpin, LOW);
+  digitalWrite(CGpin, HIGH);
+  
+
+
+  
+ 
+  
+  
+  
+  
+  //PRpin 파란불 2초
+  //PRpin 빨간불 5초
+  /*digitalWrite(PRpin, HIGH);
+  digitalWrite(PGpin, LOW);
+  delay(2000); //
+  
+  
+  digitalWrite(PRpin, LOW);
+  digitalWrite(PGpin, HIGH);
+  delay(5000); //
+  
+  digitalWrite(CRpin, LOW);
+  digitalWrite(CYpin, LOW);
+  digitalWrite(CGpin, HIGH);
+  delay(5000); //
+  
+  for(int i = 0; i<4; i++)
+  {
+  digitalWrite(CRpin, LOW);
+  digitalWrite(CYpin, HIGH);
+  digitalWrite(CGpin, LOW);
+  delay(1000);
+    
+  }
+  
+  digitalWrite(CRpin, HIGH);
+  digitalWrite(CYpin, LOW);
+  digitalWrite(CGpin, LOW);
+  delay(2000);*/
+}
+  
+  
+  
+//파란불 2 빨간불 5
+//차량용 파란불4 노란불 1초깜빡임(4번) 빨간불 2
