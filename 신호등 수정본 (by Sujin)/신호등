@@ -1,0 +1,37 @@
+#define PRL 13 // Person Red LED
+#define PGL 12 // Person Green LED
+#define VRL 8 // Vehicle Red LED
+#define VYL 7 // Vehicle Yellow LED
+#define VGL 4 // Vehicle Green LED
+
+void setup()
+{
+  pinMode(PRL, OUTPUT);
+  pinMode(PGL, OUTPUT);
+  pinMode(VRL, OUTPUT);
+  pinMode(VYL, OUTPUT);
+  pinMode(VGL, OUTPUT);
+}
+
+void loop()
+{ 
+  // 차량용 파란불 4초
+  digitalWrite(PRL, HIGH);
+  digitalWrite(VGL, HIGH);
+  digitalWrite(PGL, LOW);
+  digitalWrite(VYL, LOW);
+  digitalWrite(VRL, LOW);
+  delay(4000);
+  
+  // 차량용 노란불 1초
+  digitalWrite(VGL, LOW);
+  digitalWrite(VYL, HIGH);
+  delay(1000);
+  
+  // 보행자용 파란불 3초
+  digitalWrite(PRL, LOW);
+  digitalWrite(PGL, HIGH);
+  digitalWrite(VYL, LOW);
+  digitalWrite(VRL, HIGH);
+  delay(3000);
+}
