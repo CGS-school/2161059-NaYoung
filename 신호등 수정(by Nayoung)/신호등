@@ -1,0 +1,42 @@
+// C++ code
+//
+#define PRpin 13
+#define PGpin 12
+#define CRpin 7
+#define CYpin 6
+#define  CGpin 5
+
+
+void setup()
+{
+  pinMode(PRpin, OUTPUT);
+  pinMode(PGpin, OUTPUT);
+  pinMode(CRpin, OUTPUT);
+  pinMode(CGpin, OUTPUT);
+  pinMode(CYpin, OUTPUT);
+}
+
+void loop()
+{
+  //ON
+  digitalWrite(PGpin, HIGH);
+  digitalWrite(CRpin, HIGH);
+  //off
+  digitalWrite(PRpin, LOW);
+  digitalWrite(CGpin, LOW);
+  digitalWrite(CYpin, LOW);
+  delay(2000);
+  
+  //ON
+  digitalWrite(PRpin, HIGH);
+  digitalWrite(CGpin, HIGH);
+  digitalWrite(PGpin, LOW);
+  digitalWrite(CRpin, LOW);
+  delay (4000);
+  
+  //ON
+  digitalWrite(CYpin, HIGH);
+  //Off
+  digitalWrite(CGpin, HIGH);
+  delay(1000);
+}
