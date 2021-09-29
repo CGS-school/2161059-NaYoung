@@ -37,6 +37,6 @@ void loop()
   //ON
   digitalWrite(CYpin, HIGH);
   //Off
-  digitalWrite(CGpin, HIGH);
+  digitalWrite(CGpin, LOW);
   delay(1000);
 }
