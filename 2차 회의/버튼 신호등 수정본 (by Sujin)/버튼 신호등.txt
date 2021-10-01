@@ -1,0 +1,98 @@
+// C++ code
+
+#define VRL 12
+#define VYL 11
+#define VGL 8
+#define PRL 4
+#define PGL 7
+#define SW 2
+#define TEST 13
+
+
+void setup()
+{
+  pinMode(VRL, OUTPUT);
+  pinMode(VYL, OUTPUT);
+  pinMode(VGL, OUTPUT);
+  pinMode(PRL, OUTPUT);
+  pinMode(PGL, OUTPUT);
+  pinMode(TEST, OUTPUT);
+}
+
+void keep_VGL_on();
+void VTimeTaken(unsigned long VTT, int* PSW);
+void OnOthers(unsigned long VTT[3]);
+
+void loop()
+{
+  // 0 : RED
+  // 1 : GREEN
+  // 2 : YELLOW
+  unsigned long VTT[3] = {5000, 3000, 1000};
+  static int VCount = 0;
+  static int save_SW;
+  int* PSW = &save_SW;
+  int swValue;
+  keep_VGL_on();
+  
+  VTimeTaken(VTT[VCount], PSW);
+  /*swValue = digitalRead(SW);
+  if (swValue == LOW)
+    save_SW = 1;
+  if (save_SW == 1)
+    digitalWrite(TEST, HIGH);*/
+  
+  if (VCount == 0 && (swValue == LOW || save_SW == 1))
+      {
+        save_SW = 0;
+    	digitalWrite(TEST, LOW);
+        OnOthers(VTT);
+      }
+  if (VCount == 2)
+    VCount = 0;
+  else
+    VCount++;
+}
+
+void keep_VGL_on()
+{
+  digitalWrite(PRL, HIGH);
+  digitalWrite(VGL, HIGH);
+  digitalWrite(PGL, LOW);
+  digitalWrite(VYL, LOW);
+  digitalWrite(VRL, LOW);
+}
+
+void VTimeTaken(unsigned long VTT, int* PSW)
+{
+  unsigned long cur_time = 0, old_time = 0;
+  unsigned long time_taken = 0;
+  int swInput;
+  
+  while(time_taken < VTT)
+  {
+    old_time = millis();
+    swInput = digitalRead(SW);
+    if (swInput == LOW)
+    {
+      *PSW = 1;
+      digitalWrite(TEST, HIGH);
+    }
+    cur_time = millis();
+    time_taken += cur_time - old_time;
+  }
+}
+
+void OnOthers(unsigned long VTT[3])
+{
+  int temp = 0;
+  int *pTemp = &temp;
+  digitalWrite(VYL, HIGH);
+  digitalWrite(VGL, LOW);
+  VTimeTaken(VTT[2], pTemp);
+  digitalWrite(VYL, LOW);
+  digitalWrite(VRL, HIGH);
+  digitalWrite(PRL, LOW);
+  digitalWrite(PGL, HIGH);
+  VTimeTaken(VTT[1], pTemp);
+}
