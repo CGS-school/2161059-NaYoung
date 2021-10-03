@@ -1,0 +1,98 @@
+//핀 설정
+#define VRL 12
+#define VYL 11
+#define VGL 8
+#define PRL 4
+#define PGL 7
+#define TRIG 3	// 초음파 보내는 핀
+#define ECHO 2 // 초음파 받는 핀
+#define TEST 13
+
+//OUTPUT으로 설정
+void setup()
+{
+  pinMode(VRL, OUTPUT);
+  pinMode(VYL, OUTPUT);
+  pinMode(VGL, OUTPUT);
+  pinMode(PGL, OUTPUT);
+  pinMode(PGL, OUTPUT);
+  pinMode(TEST, OUTPUT);
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+}
+
+void keep_VGL_on();
+void VTimeTaken(unsigned long VTT);
+void OnOthers(unsigned long VTT[3]);
+
+void loop()
+{
+  // 0 : RED
+  // 1 : GREEN
+  // 2 : YELLOW
+  unsigned long VTT[3] = {5000, 3000, 1000};
+  static int VCount = 0;
+ 
+  keep_VGL_on();
+  VTimeTaken(VTT[VCount]);
+  
+  long duration, distance;
+  
+  duration = pulseIn(ECHO, HIGH);
+  distance = duration * 17 / 1000;
+  /*swValue == digitalRead(SW);
+  if(swValue == LOW)
+  save_SW = 1;
+  if(save_SW ==1)
+  digitalWrite(TEST, HIGH);*/
+  
+  if(VCount == 0 && distance < 27)
+  {
+    digitalWrite(TEST, LOW);
+    OnOther(VTT);
+  }
+  
+  if (VCount == 2)
+    VCount = 0;
+  else
+    VCount++;
+}
+  
+void keep_VGL_on()
+{
+  digitalWrite(PRL, HIGH);
+  digitalWrite(VGL, HIGH);
+  digitalWrite(PGL, LOW);
+  digitalWrite(VYL, LOW);
+  digitalWrite(VRL, LOW);
+}
+ 
+void VTimeTaken(unsigned long VTT)
+{
+  unsigned long cur_time = 0, old_time = 0;
+  unsigned long time_taken = 0;
+ 
+  
+  while(time_taken < VTT)
+  {
+    old_time = millis();
+    cur_time = millis();
+    time_taken += cur_time - old_time;
+  }
+}
+
+
+void OnOther(unsigned long VTT[3])
+{
+  
+  digitalWrite(VYL, HIGH);
+  digitalWrite(VGL, LOW);
+  VTimeTaken(VTT[2]);
+  digitalWrite(VYL, LOW);
+  digitalWrite(VRL, HIGH);
+  digitalWrite(PRL, LOW);
+  digitalWrite(PGL, HIGH);
+  VTimeTaken(VTT[1]);
+}
+  
+  
